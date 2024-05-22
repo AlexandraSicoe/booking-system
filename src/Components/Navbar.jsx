@@ -41,7 +41,7 @@ const Navbar = () => {
               height: "60px",
               borderRadius: "50%",
               border: "2px solid white",
-            }} // Adjusted size and added border
+            }}
           />
           <Button
             variant="contained"
@@ -49,11 +49,12 @@ const Navbar = () => {
             sx={{
               backgroundColor: "white",
               marginLeft: "15px",
-              color: "black",
+              color: "darkblue",
               fontWeight: "bold",
               transition: "all 0.3s ease",
               "&:hover": {
-                backgroundColor: "#ff4081",
+                backgroundImage:
+                  "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
                 color: "white",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                 transform: "scale(1.05)",

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, Input } from "@mui/material";
 
-const LoginForm = ({ setFormState }) => {
+const RegisterForm = ({ setFormState }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add your login logic here
   };
 
   return (
@@ -18,7 +17,7 @@ const LoginForm = ({ setFormState }) => {
         margin: "10px",
         padding: "20px", // Increased padding for better spacing
         borderRadius: 8,
-        boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         textAlign: "center",
         position: "absolute",
         top: "50%",
@@ -30,9 +29,16 @@ const LoginForm = ({ setFormState }) => {
         variant="h4"
         sx={{ mb: 2, color: "#1a237e", fontWeight: "bold" }}
       >
-        Login
+        Register
       </Typography>
       <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          placeholder="Name"
+          required
+          fullWidth
+          sx={{ mb: 2 }}
+        />
         <Input
           type="email"
           placeholder="Email"
@@ -40,8 +46,7 @@ const LoginForm = ({ setFormState }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           fullWidth
-          sx={{ mb: 2 }}
-          inputProps={{ style: { color: "#1a237e" } }}
+          sx={{ color: "#1a237e", mb: 2 }}
         />
         <Input
           type="password"
@@ -50,47 +55,45 @@ const LoginForm = ({ setFormState }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           fullWidth
-          sx={{ mb: 2 }}
-          inputProps={{ style: { color: "#1a237e" } }}
+          sx={{ mb: 2, color: "#1a237e" }}
         />
-        <Box display="flex" justifyContent="space-between">
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Button
             type="submit"
             variant="contained"
             sx={{
               backgroundColor: "#1a237e",
-              color: "white", // White text color
+              color: "white",
               fontWeight: "bold",
               "&:hover": {
-                backgroundColor: "#3f51b5", // Darken background color on hover
+                backgroundColor: "#3f51b5",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                 transform: "scale(1.05)",
               },
             }}
           >
-            Login
+            Register
           </Button>
           <Button
             onClick={() => {
-              setFormState("Register");
+              setFormState("Login");
             }}
             type="submit"
             variant="contained"
             sx={{
-              // backgroundColor: "#1a237e",
               border: "1px solid #1a237e",
               backgroundColor: "transparent",
-              color: "#1a237e", // White text color
+              color: "#1a237e",
               fontWeight: "bold",
               "&:hover": {
-                backgroundColor: "#1a237e", // Darken background color on hover
+                backgroundColor: "#1a237e",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
                 transform: "scale(1.05)",
                 color: "white",
               },
             }}
           >
-            Register
+            Login
           </Button>
         </Box>
       </form>
@@ -98,4 +101,4 @@ const LoginForm = ({ setFormState }) => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
