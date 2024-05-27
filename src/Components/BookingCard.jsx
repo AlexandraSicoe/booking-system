@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import CardCover from "../../public/images/CardCover.jpg";
+import CardCover from "../images/CardCover.jpg";
 export default function ActionAreaCard() {
   return (
     <Card sx={{ maxWidth: 345 }}>

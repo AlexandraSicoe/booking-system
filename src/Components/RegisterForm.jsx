@@ -1,12 +1,32 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, Input } from "@mui/material";
+// import { decode } from "jwt-decode";
+import axios from "axios";
 
 const RegisterForm = ({ setFormState }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const registerUser = async (e) => {
+    e.preventDefault(); // opresc butoanele din a realiza o actiune default, e.g. submit
+    try {
+      const response = await axios.post(
+        "http://localhost:3012/api/auth/register",
+        {
+          username: username,
+          password: password,
+        }
+      );
+      const { token } = response.data;
+      localStorage.setItem("token", token); // Store token in local storage
+      // Redirect or update state as needed
+      console.log("Registration successful, token:", token);
+    } catch (error) {
+      console.error(
+        "Registration failed:",
+        error.response ? error.response.data : error.message
+      );
+    }
   };
 
   return (
@@ -15,14 +35,14 @@ const RegisterForm = ({ setFormState }) => {
         width: "100%",
         maxWidth: "400px",
         margin: "10px",
-        padding: "20px", // Increased padding for better spacing
+        padding: "20px",
         borderRadius: 8,
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         textAlign: "center",
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%, -50%)", // Center horizontally and vertically
+        transform: "translate(-50%, -50%)",
       }}
     >
       <Typography
@@ -31,20 +51,13 @@ const RegisterForm = ({ setFormState }) => {
       >
         Register
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Input
           type="text"
-          placeholder="Name"
+          placeholder="Username"
           required
-          fullWidth
-          sx={{ mb: 2 }}
-        />
-        <Input
-          type="email"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           fullWidth
           sx={{ color: "#1a237e", mb: 2 }}
         />
@@ -61,6 +74,9 @@ const RegisterForm = ({ setFormState }) => {
           <Button
             type="submit"
             variant="contained"
+            onClick={(e) => {
+              registerUser(e);
+            }}
             sx={{
               backgroundColor: "#1a237e",
               color: "white",

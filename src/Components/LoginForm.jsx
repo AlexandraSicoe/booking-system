@@ -1,13 +1,38 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, Input } from "@mui/material";
+import axios from "axios";
+// import { decode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ setFormState }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add your login logic here
+  const loginUser = async (e) => {
+    e.preventDefault(); // opresc butoanele din a realiza o actiune default, e.g. submit
+    navigate("/");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3012/api/auth/login",
+        {
+          username: username,
+          password: password,
+        }
+      );
+      const { token } = response.data;
+      console.log("Login successful, token:", token);
+
+      // Decode the token
+      // const decodedToken = decode(token);
+      // console.log("Decoded token:", decodedToken);
+
+      // Store the token in local storage or handle it as needed
+      localStorage.setItem("token", token);
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -16,14 +41,14 @@ const LoginForm = ({ setFormState }) => {
         width: "100%",
         maxWidth: "400px",
         margin: "10px",
-        padding: "20px", // Increased padding for better spacing
+        padding: "20px",
         borderRadius: 8,
         boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
         textAlign: "center",
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%, -50%)", // Center horizontally and vertically
+        transform: "translate(-50%, -50%)",
       }}
     >
       <Typography
@@ -32,13 +57,13 @@ const LoginForm = ({ setFormState }) => {
       >
         Login
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Input
-          type="email"
-          placeholder="Email"
+          type="text"
+          placeholder="Username"
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           fullWidth
           sx={{ mb: 2 }}
           inputProps={{ style: { color: "#1a237e" } }}
@@ -57,6 +82,9 @@ const LoginForm = ({ setFormState }) => {
           <Button
             type="submit"
             variant="contained"
+            onClick={(e) => {
+              loginUser(e);
+            }}
             sx={{
               backgroundColor: "#1a237e",
               color: "white", // White text color

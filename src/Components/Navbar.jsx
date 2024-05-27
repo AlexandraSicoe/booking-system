@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
-import Logo from "../../public/images/Logo.png";
-import ProfilePicture from "../../public/images/pfp.jpg";
+import Logo from "../images/Logo.png";
+import ProfilePicture from "../images/pfp.jpg";
 
 const Navbar = () => {
   return (
