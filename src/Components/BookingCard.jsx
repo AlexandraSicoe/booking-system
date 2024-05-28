@@ -1,18 +1,16 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import { Button, Input, Typography } from "@mui/material";
+import { Box, Button, Input, Typography } from "@mui/material";
 import { CardActionArea } from "@mui/material";
-import CardCover from "../images/CardCover.jpg";
 import axios from "axios";
 import { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 export default function ActionAreaCard() {
   const [location, setLocation] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const getBooking = async () => {
     try {
@@ -34,14 +32,16 @@ export default function ActionAreaCard() {
       console.error(error);
     }
   };
+
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        boxShadow: "2px 2px 5px",
+        marginTop: "10px",
+        marginBottom: "10px",
       }}
     >
       <CardActionArea>
-        <CardMedia component="img" image={CardCover} height="140" />
         <CardContent>
           <form
             sx={{
@@ -61,31 +61,66 @@ export default function ActionAreaCard() {
               inputProps={{ style: { color: "#1a237e" } }}
               onChange={(e) => setLocation(e.target.value)}
             />
-            <Typography level="title-md">Start Date</Typography>
-            <DatePicker onChange={(date) => setStartDate(date)} />
             <Typography
-              sx={{
-                marginTop: "15px",
-              }}
-              level="title-md"
+              variant="subtitle1"
+              sx={{ color: "#1a237e", marginBottom: "5px" }}
+            >
+              Start Date
+            </Typography>
+            <DatePicker
+              value={startDate}
+              onChange={(date) => setStartDate(date)}
+              renderInput={(params) => <Input {...params} fullWidth />}
+            />
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "#1a237e", marginTop: "15px", marginBottom: "5px" }}
             >
               End Date
             </Typography>
-            <DatePicker onChange={(date) => setEndDate(date)} />
-            <Button
-              onClick={() => {
-                getBooking();
-              }}
+            <DatePicker
+              value={endDate}
+              onChange={(date) => setEndDate(date)}
+              renderInput={(params) => <Input {...params} fullWidth />}
+            />
+            <Box
               sx={{
-                backgroundImage:
-                  "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
-                color: "white",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-                marginTop: "15px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
               }}
             >
-              Create Booking
-            </Button>
+              <Button
+                onClick={getBooking}
+                sx={{
+                  backgroundImage:
+                    "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+                  color: "white",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                  marginTop: "15px",
+                  fontWeight: "bold",
+                  width: "48%", // Make sure buttons take up equal width
+                  textTransform: "none",
+                }}
+              >
+                Add
+              </Button>
+              <Button
+                sx={{
+                  backgroundImage:
+                    "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+                  color: "white",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                  marginTop: "15px",
+                  fontWeight: "bold",
+                  width: "48%", // Make sure buttons take up equal width
+                  textTransform: "none",
+                }}
+              >
+                Delete
+              </Button>
+            </Box>
           </form>
         </CardContent>
       </CardActionArea>

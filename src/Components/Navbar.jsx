@@ -7,14 +7,13 @@ const Navbar = () => {
   return (
     <Box
       sx={{
-        background: "linear-gradient(90deg, #1a237e 0%, #000000 100%)", // Gradient background
-        position: "fixed",
-        zIndex: 9999,
-        left: 0,
+        background: "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+        position: "sticky",
+        zIndex: 999, // Decrease z-index to allow other elements to appear above
         top: 0,
         width: "100%",
         padding: "10px 0px",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // subtle shadow
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Container
@@ -28,10 +27,8 @@ const Navbar = () => {
           src={Logo}
           alt="logo"
           style={{ height: "60px", width: "60px", borderRadius: "50%" }}
-        />{" "}
-        <Typography variant="h5" sx={{ color: "white", fontWeight: "bold" }}>
-          BookingBee
-        </Typography>
+        />
+
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <img
             src={ProfilePicture}
@@ -61,7 +58,7 @@ const Navbar = () => {
               },
             }}
           >
-            Log out
+            Logout
           </Button>
         </Box>
       </Container>

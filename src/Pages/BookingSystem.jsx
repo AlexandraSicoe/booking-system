@@ -1,17 +1,15 @@
 import { Box, Typography, Button, Grid, Container } from "@mui/material";
 import React from "react";
 import Navbar from "../Components/Navbar";
-import BookingCard from "../Components/BookingCard";
+import Dashboard from "../Components/Dashboard";
 const BookingSystem = () => {
   return (
-    <Grid>
-      <Navbar />
-      <Container>
-        <Grid container>
-          <BookingCard />
-        </Grid>
-      </Container>
-    </Grid>
+    <>
+      <Grid sx={{ width: "100vw" }}>
+        <Navbar />
+        <Dashboard />
+      </Grid>
+    </>
   );
 };
 
