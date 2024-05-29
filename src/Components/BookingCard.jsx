@@ -37,8 +37,8 @@ export default function ActionAreaCard() {
     <Card
       sx={{
         boxShadow: "2px 2px 5px",
-        marginTop: "10px",
         marginBottom: "10px",
+        width: { xs: "100%", md: "300px" },
       }}
     >
       <CardActionArea>
@@ -104,7 +104,7 @@ export default function ActionAreaCard() {
                   textTransform: "none",
                 }}
               >
-                Add
+                Book
               </Button>
               <Button
                 sx={{
