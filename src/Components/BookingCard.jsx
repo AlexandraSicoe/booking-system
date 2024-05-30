@@ -85,7 +85,11 @@ export default function ActionAreaCard() {
             />
 
             <Button
-              onClick={getBooking}
+              onClick={() => {
+                getBooking();
+
+                window.location.reload();
+              }}
               sx={{
                 backgroundImage:
                   "linear-gradient(90deg, #1a237e 0%, #000000 100%)",

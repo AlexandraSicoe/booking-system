@@ -29,7 +29,7 @@ const Dashboard = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            marginTop: { sm: "0px", md: "20px" },
+            marginTop: { sm: "0px", md: "10px" },
             paddingTop: { xs: "20px", md: "0" }, // Adjust top padding for consistency
             borderLeft: { xs: "0px", lg: "1px solid #e0e0e0" },
             paddingLeft: { xs: "0", lg: "16px" }, // Add padding left to align with border

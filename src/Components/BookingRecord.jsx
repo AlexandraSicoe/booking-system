@@ -1,70 +1,114 @@
 import { Box, Typography, Grid, Button } from "@mui/material";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const BookingRecord = () => {
+  const [bookings, setBookings] = useState([]);
+  const [error, setError] = useState("");
+
+  const getBookingRecords = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get("http://localhost:3012/api/bookings", {
+        headers: { Authorization: "Bearer " + token },
+      });
+      setBookings(response.data);
+    } catch (error) {
+      setError("Failed to fetch booking records");
+    }
+  };
+
+  useEffect(() => {
+    getBookingRecords();
+  }, []);
+
   return (
-    <Grid
-      sx={{
-        padding: "20px",
-        backgroundColor: "#f9f9f9",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: { xs: "center", md: "start" },
-        marginLeft: { xs: "0px", md: "30px", lg: "50px" },
-      }}
-    >
-      <Typography
-        variant="h5"
-        sx={{
-          marginBottom: "16px",
-          fontWeight: "bold",
-          color: "#333",
-          alignSelf: "center",
-        }}
-      >
-        Booking Record
-      </Typography>
-      <Grid direction="column" sx={{ color: "#555" }}>
-        <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontWeight: "bold" }} variant="h6">
-            Name:{" "}
-          </Typography>
-          <Typography variant="h6"> John Doe</Typography>
-        </Grid>
-        <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontWeight: "bold" }} variant="h6">
-            Location:
-          </Typography>
-          <Typography variant="h6">New York, NY</Typography>
-        </Grid>
-        <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontWeight: "bold" }} variant="h6">
-            Start Date:
-          </Typography>
-          <Typography variant="h6">01/01/2023</Typography>
-        </Grid>
-        <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography sx={{ fontWeight: "bold" }} variant="h6">
-            End Date:
-          </Typography>
-          <Typography variant="h6">01/07/2023</Typography>
-        </Grid>
-      </Grid>
-      <Button
-        sx={{
-          backgroundImage: "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
-          color: "white",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-          marginTop: "15px",
-          fontWeight: "bold",
-          width: { xs: "100%", md: "30%" },
-          textTransform: "none",
-          alignSelf: "end",
-        }}
-      >
-        Cancel
-      </Button>
+    <Grid>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            marginBottom: "16px",
+            fontWeight: "bold",
+            color: "#333",
+            selfALign: "center",
+          }}
+        >
+          Your Booking Records
+        </Typography>
+      </Box>
+
+      {error && (
+        <Typography color="error" variant="h6">
+          {error}
+        </Typography>
+      )}
+      {bookings.length > 0
+        ? bookings.map((booking) => (
+            <Grid
+              key={booking.id}
+              direction="column"
+              sx={{
+                padding: "20px",
+                backgroundColor: "#f9f9f9",
+                color: "black",
+                borderRadius: "8px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "10px",
+                alignItems: { xs: "center", md: "start" },
+                marginLeft: { xs: "0px", md: "30px", lg: "50px" },
+              }}
+            >
+              <Grid item sx={{ display: "flex", flexDirection: "row" }}>
+                <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                  Location:
+                </Typography>
+                <Typography variant="h6">{booking.location}</Typography>
+              </Grid>
+              <Grid item sx={{ display: "flex", flexDirection: "row" }}>
+                <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                  Start Date:
+                </Typography>
+                <Typography variant="h6">
+                  {booking.startDate.slice(0, -14)}
+                </Typography>
+              </Grid>
+              <Grid item sx={{ display: "flex", flexDirection: "row" }}>
+                <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                  End Date:
+                </Typography>
+                <Typography variant="h6">
+                  {booking.endDate.slice(0, -14)}
+                </Typography>
+              </Grid>
+              <Button
+                sx={{
+                  backgroundImage:
+                    "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+                  color: "white",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                  marginTop: "15px",
+                  fontWeight: "bold",
+                  width: { xs: "100%", md: "40%" },
+                  textTransform: "none",
+                  alignSelf: "end",
+                }}
+              >
+                Cancel booking
+              </Button>
+            </Grid>
+          ))
+        : !error && (
+            <Typography
+              variant="h6"
+              sx={{ color: "#555", alignSelf: "center" }}
+            >
+              You haven't made any bookings yet.
+            </Typography>
+          )}
     </Grid>
   );
 };
