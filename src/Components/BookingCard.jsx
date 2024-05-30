@@ -12,7 +12,7 @@ export default function ActionAreaCard() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  const getBooking = async () => {
+  const addBooking = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -86,8 +86,7 @@ export default function ActionAreaCard() {
 
             <Button
               onClick={() => {
-                getBooking();
-
+                addBooking();
                 window.location.reload();
               }}
               sx={{

@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 const BookingRecord = () => {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const getBookingRecords = async () => {
     try {
       const token = localStorage.getItem("token");
-
       const response = await axios.get("http://localhost:3012/api/bookings", {
         headers: { Authorization: "Bearer " + token },
       });
@@ -19,10 +19,27 @@ const BookingRecord = () => {
     }
   };
 
+  const deleteBooking = async (_id) => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log(_id);
+      const response = await axios.delete(
+        `http://localhost:3012/api/bookings/${_id}`,
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      );
+      setMessage(response.data.message);
+      getBookingRecords();
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+      setError("Failed to delete booking");
+    }
+  };
+
   useEffect(() => {
     getBookingRecords();
   }, []);
-
   return (
     <Grid>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -44,10 +61,15 @@ const BookingRecord = () => {
           {error}
         </Typography>
       )}
+      {message && (
+        <Typography color="success" variant="h6">
+          {message}
+        </Typography>
+      )}
       {bookings.length > 0
         ? bookings.map((booking) => (
             <Grid
-              key={booking.id}
+              key={booking._id}
               direction="column"
               sx={{
                 padding: "20px",
@@ -85,6 +107,10 @@ const BookingRecord = () => {
                 </Typography>
               </Grid>
               <Button
+                onClick={() => {
+                  deleteBooking(booking._id);
+                  console.log(booking._id);
+                }}
                 sx={{
                   backgroundImage:
                     "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
