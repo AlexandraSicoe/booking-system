@@ -5,7 +5,7 @@ import Dashboard from "../Components/Dashboard";
 const BookingSystem = () => {
   return (
     <>
-      <Grid sx={{ width: "100vw" }}>
+      <Grid>
         <Navbar />
         <Dashboard />
       </Grid>

@@ -6,10 +6,10 @@ const Dashboard = () => {
   return (
     <Container
       sx={{
-        paddingLeft: { xs: "12px", md: "19px" }, // Adjust padding for responsiveness
+        paddingLeft: { xs: "16px", sm: "24px" }, // Adjust padding for responsiveness
       }}
     >
-      <Grid container spacing={2}>
+      <Grid container>
         {" "}
         <Grid item xs={12} md={4}>
           <Box
@@ -29,8 +29,7 @@ const Dashboard = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "20px",
-            marginTop: { md: "0px", md: "20px" },
+            marginTop: { sm: "0px", md: "20px" },
             paddingTop: { xs: "20px", md: "0" }, // Adjust top padding for consistency
             borderLeft: { xs: "0px", lg: "1px solid #e0e0e0" },
             paddingLeft: { xs: "0", lg: "16px" }, // Add padding left to align with border
