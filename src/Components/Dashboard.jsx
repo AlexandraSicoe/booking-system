@@ -4,13 +4,19 @@ import BookingRecord from "./BookingRecord";
 
 const Dashboard = () => {
   return (
-    <Container>
-      <Grid container sx={{ width: "100%" }}>
+    <Container
+      sx={{
+        paddingLeft: { xs: "12px", md: "19px" }, // Adjust padding for responsiveness
+      }}
+    >
+      <Grid container spacing={2}>
+        {" "}
         <Grid item xs={12} md={4}>
           <Box
             sx={{
               position: "sticky",
-              top: "80px",
+              top: "100px",
+              paddingRight: { xs: "0", md: "16px" }, // Adjust padding for better layout
             }}
           >
             <BookingCard />
@@ -23,14 +29,20 @@ const Dashboard = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "20px", // add space between items
-            marginTop: "20px",
-            borderLeft: { xs: "0px", md: "1px solid #e0e0e0" },
+            gap: "20px",
+            marginTop: { md: "0px", md: "20px" },
+            paddingTop: { xs: "20px", md: "0" }, // Adjust top padding for consistency
+            borderLeft: { xs: "0px", lg: "1px solid #e0e0e0" },
+            paddingLeft: { xs: "0", lg: "16px" }, // Add padding left to align with border
           }}
         >
           {Array.from({ length: 12 }).map((booking, index) => (
-            <Box key={index}>
-              {" "}
+            <Box
+              key={index}
+              sx={{
+                paddingBottom: "20px", // Add padding bottom for consistency between items
+              }}
+            >
               <BookingRecord />
             </Box>
           ))}

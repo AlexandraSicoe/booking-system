@@ -11,7 +11,7 @@ const BookingRecord = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: { xs: "center", md: "start" },
-        marginLeft: { xs: "0px", lg: "50px" },
+        marginLeft: { xs: "0px", md: "30px", lg: "50px" },
       }}
     >
       <Typography
