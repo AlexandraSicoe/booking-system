@@ -35,16 +35,13 @@ const Dashboard = () => {
             paddingLeft: { xs: "0", lg: "16px" }, // Add padding left to align with border
           }}
         >
-          {Array.from({ length: 12 }).map((booking, index) => (
-            <Box
-              key={index}
-              sx={{
-                paddingBottom: "20px", // Add padding bottom for consistency between items
-              }}
-            >
-              <BookingRecord />
-            </Box>
-          ))}
+          <Box
+            sx={{
+              paddingBottom: "20px",
+            }}
+          >
+            <BookingRecord />
+          </Box>
         </Grid>
       </Grid>
     </Container>

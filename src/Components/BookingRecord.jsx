@@ -1,8 +1,8 @@
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
 
 const BookingRecord = () => {
   return (
-    <Box
+    <Grid
       sx={{
         padding: "20px",
         backgroundColor: "#f9f9f9",
@@ -51,7 +51,21 @@ const BookingRecord = () => {
           <Typography variant="h6">01/07/2023</Typography>
         </Grid>
       </Grid>
-    </Box>
+      <Button
+        sx={{
+          backgroundImage: "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+          color: "white",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+          marginTop: "15px",
+          fontWeight: "bold",
+          width: { xs: "100%", md: "30%" },
+          textTransform: "none",
+          alignSelf: "end",
+        }}
+      >
+        Cancel
+      </Button>
+    </Grid>
   );
 };
 

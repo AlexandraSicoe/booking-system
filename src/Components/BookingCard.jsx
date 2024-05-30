@@ -83,44 +83,22 @@ export default function ActionAreaCard() {
               onChange={(date) => setEndDate(date)}
               renderInput={(params) => <Input {...params} fullWidth />}
             />
-            <Box
+
+            <Button
+              onClick={getBooking}
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "100%",
+                backgroundImage:
+                  "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+                color: "white",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                marginTop: "15px",
+                fontWeight: "bold",
+                width: "100%", // Make sure buttons take up equal width
+                textTransform: "none",
               }}
             >
-              <Button
-                onClick={getBooking}
-                sx={{
-                  backgroundImage:
-                    "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
-                  color: "white",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-                  marginTop: "15px",
-                  fontWeight: "bold",
-                  width: "48%", // Make sure buttons take up equal width
-                  textTransform: "none",
-                }}
-              >
-                Book
-              </Button>
-              <Button
-                sx={{
-                  backgroundImage:
-                    "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
-                  color: "white",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-                  marginTop: "15px",
-                  fontWeight: "bold",
-                  width: "48%", // Make sure buttons take up equal width
-                  textTransform: "none",
-                }}
-              >
-                Delete
-              </Button>
-            </Box>
+              Book
+            </Button>
           </form>
         </CardContent>
       </CardActionArea>
