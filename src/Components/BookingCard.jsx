@@ -4,8 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import { Box, Button, Input, Typography } from "@mui/material";
 import { CardActionArea } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ActionAreaCard() {
   const [location, setLocation] = useState("");
@@ -30,6 +32,7 @@ export default function ActionAreaCard() {
       console.log(response.data);
     } catch (error) {
       console.error(error);
+      toast.error("There has been an error while saving the booking!");
     }
   };
 
@@ -105,6 +108,18 @@ export default function ActionAreaCard() {
           </form>
         </CardContent>
       </CardActionArea>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Card>
   );
 }

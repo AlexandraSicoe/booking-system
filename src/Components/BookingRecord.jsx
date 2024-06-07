@@ -1,12 +1,15 @@
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import BookingImage from "../images/letsStartBooking.jpg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BookingRecord = () => {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const getBookingRecords = async () => {
     try {
@@ -18,6 +21,7 @@ const BookingRecord = () => {
     } catch (error) {
       setError("Failed to fetch booking records");
     }
+    setIsLoading(false);
   };
 
   const deleteBooking = async (_id) => {
@@ -56,107 +60,105 @@ const BookingRecord = () => {
           Your Booking Records
         </Typography>
       </Box>
-
-      {error && (
-        <Typography color="error" variant="h6">
-          {error}
-        </Typography>
-      )}
-      {message && (
-        <Typography color="success" variant="h6">
-          {message}
-        </Typography>
-      )}
-      {bookings.length > 0
-        ? bookings.map((booking) => (
-            <Grid
-              key={booking._id}
-              direction="column"
-              sx={{
-                padding: "20px",
-                backgroundColor: "#f9f9f9",
-                color: "black",
-                borderRadius: "8px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                display: "flex",
-                flexDirection: "column",
-                marginTop: "10px",
-                alignItems: { xs: "center", md: "start" },
-                marginLeft: { xs: "0px", md: "30px", lg: "50px" },
-              }}
-            >
-              <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-                <Typography sx={{ fontWeight: "bold" }} variant="h6">
-                  Location:
-                </Typography>
-                <Typography variant="h6">{booking.location}</Typography>
-              </Grid>
-              <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-                <Typography sx={{ fontWeight: "bold" }} variant="h6">
-                  Start Date:
-                </Typography>
-                <Typography variant="h6">
-                  {booking.startDate.slice(0, -14)}
-                </Typography>
-              </Grid>
-              <Grid item sx={{ display: "flex", flexDirection: "row" }}>
-                <Typography sx={{ fontWeight: "bold" }} variant="h6">
-                  End Date:
-                </Typography>
-                <Typography variant="h6">
-                  {booking.endDate.slice(0, -14)}
-                </Typography>
-              </Grid>
-              <Button
-                onClick={() => {
-                  deleteBooking(booking._id);
-                  console.log(booking._id);
-                }}
-                sx={{
-                  backgroundImage:
-                    "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
-                  color: "white",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-                  marginTop: "15px",
-                  fontWeight: "bold",
-                  width: { xs: "100%", md: "40%" },
-                  textTransform: "none",
-                  alignSelf: "end",
-                }}
-              >
-                Cancel booking
-              </Button>
+      {isLoading ? (
+        <CircularProgress />
+      ) : bookings.length > 0 ? (
+        bookings.map((booking) => (
+          <Grid
+            key={booking._id}
+            direction="column"
+            sx={{
+              padding: "20px",
+              backgroundColor: "#f9f9f9",
+              color: "black",
+              borderRadius: "8px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "10px",
+              alignItems: { xs: "center", md: "start" },
+              marginLeft: { xs: "0px", md: "30px", lg: "50px" },
+            }}
+          >
+            <Grid item sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                Location:
+              </Typography>
+              <Typography variant="h6">{booking.location}</Typography>
             </Grid>
-          ))
-        : !error && (
-            <Box
+            <Grid item sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                Start Date:
+              </Typography>
+              <Typography variant="h6">
+                {booking.startDate.slice(0, -14)}
+              </Typography>
+            </Grid>
+            <Grid item sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography sx={{ fontWeight: "bold" }} variant="h6">
+                End Date:
+              </Typography>
+              <Typography variant="h6">
+                {booking.endDate.slice(0, -14)}
+              </Typography>
+            </Grid>
+            <Button
+              onClick={() => {
+                deleteBooking(booking._id);
+                console.log(booking._id);
+              }}
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
+                backgroundImage:
+                  "linear-gradient(90deg, #1a237e 0%, #000000 100%)",
+                color: "white",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+                marginTop: "15px",
+                fontWeight: "bold",
+                width: { xs: "100%", md: "40%" },
+                textTransform: "none",
+                alignSelf: "end",
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{ color: "#555", alignSelf: "center" }}
-              >
-                You haven't made any bookings yet.
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: "#555", alignSelf: "center" }}
-              >
-                Let's start booking!
-              </Typography>
-              <img
-                src={BookingImage}
-                alt="booking image illustration"
-                style={{
-                  marginTop: "20px",
-                }}
-              />
-            </Box>
-          )}
+              Cancel booking
+            </Button>
+          </Grid>
+        ))
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <Typography variant="h6" sx={{ color: "#555", alignSelf: "center" }}>
+            You haven't made any bookings yet.
+          </Typography>
+          <Typography variant="h6" sx={{ color: "#555", alignSelf: "center" }}>
+            Let's start booking!
+          </Typography>
+          <img
+            src={BookingImage}
+            alt="booking image illustration"
+            style={{
+              marginTop: "20px",
+            }}
+          />
+        </Box>
+      )}
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Grid>
   );
 };
