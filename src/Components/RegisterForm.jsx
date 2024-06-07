@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Box, Typography, Button, Input } from "@mui/material";
 // import { decode } from "jwt-decode";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = ({ setFormState }) => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,6 +24,7 @@ const RegisterForm = ({ setFormState }) => {
       localStorage.setItem("token", token); // Store token in local storage
       // Redirect or update state as needed
       console.log("Registration successful, token:", token);
+      navigate("/");
     } catch (error) {
       console.error(
         "Registration failed:",

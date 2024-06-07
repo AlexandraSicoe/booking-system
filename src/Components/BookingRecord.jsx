@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, Button } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import BookingImage from "../images/letsStartBooking.jpg";
 
 const BookingRecord = () => {
   const [bookings, setBookings] = useState([]);
@@ -128,12 +129,33 @@ const BookingRecord = () => {
             </Grid>
           ))
         : !error && (
-            <Typography
-              variant="h6"
-              sx={{ color: "#555", alignSelf: "center" }}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
             >
-              You haven't made any bookings yet.
-            </Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: "#555", alignSelf: "center" }}
+              >
+                You haven't made any bookings yet.
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: "#555", alignSelf: "center" }}
+              >
+                Let's start booking!
+              </Typography>
+              <img
+                src={BookingImage}
+                alt="booking image illustration"
+                style={{
+                  marginTop: "20px",
+                }}
+              />
+            </Box>
           )}
     </Grid>
   );

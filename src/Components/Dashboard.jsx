@@ -16,7 +16,7 @@ const Dashboard = () => {
             sx={{
               position: "sticky",
               top: "100px",
-              paddingRight: { xs: "0", md: "16px" }, // Adjust padding for better layout
+              paddingRight: { xs: "0", md: "16px" },
             }}
           >
             <BookingCard />
@@ -30,9 +30,9 @@ const Dashboard = () => {
             display: "flex",
             flexDirection: "column",
             marginTop: { sm: "0px", md: "10px" },
-            paddingTop: { xs: "20px", md: "0" }, // Adjust top padding for consistency
+            paddingTop: { xs: "20px", md: "0" },
             borderLeft: { xs: "0px", lg: "1px solid #e0e0e0" },
-            paddingLeft: { xs: "0", lg: "16px" }, // Add padding left to align with border
+            paddingLeft: { xs: "0", lg: "16px" },
           }}
         >
           <Box
